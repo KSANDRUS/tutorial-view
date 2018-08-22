@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class TutorialActivity extends AppCompatActivity implements View.OnClickListener,CurrentFragmentListener {
+public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Step> steps;
     private StepPagerAdapter adapter;
@@ -32,7 +32,6 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
     private LinearLayout indicatorLayout;
     private FrameLayout containerLayout;
     private RelativeLayout buttonContainer;
-    private CurrentFragmentListener currentFragmentListener;
 
     private int currentItem;
 
@@ -44,7 +43,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         setTheme(R.style.TutorialStyle);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
-        currentFragmentListener = this;
+
         init();
     }
 
@@ -75,7 +74,6 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
             @Override
             public void onPageSelected(int position) {
                 currentItem = position;
-                currentFragmentListener.currentFragmentPosition(position);
                 controlPosition(position);
             }
 
@@ -100,12 +98,15 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         if (position == steps.size() - 1) {
             next.setText(finishText);
             prev.setText(prevText);
+            prev.setEnabled(true);
         } else if (position == 0) {
-            prev.setText(cancelText);
+            prev.setText(null);
             next.setText(nextText);
+            prev.setEnabled(false);
         } else {
             prev.setText(prevText);
             next.setText(nextText);
+            prev.setEnabled(true);
         }
 
         if (controlPermission()) {
@@ -118,10 +119,12 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         buttonContainer.setBackgroundColor(steps.get(position).getBackgroundColor());
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void prepareNormalView() {
         pager.setOnTouchListener(null);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void preparePermissionView() {
         next.setText(givePermissionText);
 
@@ -281,6 +284,4 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
             changeFragment(true);
         }
     }
-
-
 }
