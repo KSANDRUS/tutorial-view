@@ -4,11 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -57,7 +57,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     private void initTexts() {
         prevText = "Back";
         cancelText = "Cancel";
-        finishText = "Finish";
+        finishText = "Let's theme";
         nextText = "Next";
         givePermissionText = "Give";
     }
@@ -96,14 +96,17 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         notifyIndicator();
 
         if (position == steps.size() - 1) {
+            prev.setVisibility(View.VISIBLE);
             next.setText(finishText);
             prev.setText(prevText);
             prev.setEnabled(true);
         } else if (position == 0) {
             prev.setText(null);
+            prev.setVisibility(View.GONE);
             next.setText(nextText);
             prev.setEnabled(false);
         } else {
+            prev.setVisibility(View.VISIBLE);
             prev.setText(prevText);
             next.setText(nextText);
             prev.setEnabled(true);

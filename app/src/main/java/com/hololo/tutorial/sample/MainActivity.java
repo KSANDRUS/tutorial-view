@@ -29,7 +29,7 @@ public class MainActivity extends TutorialActivity {
         finish();
     }
 
-    @Override
+    //@Override
     public void currentFragmentPosition(int position) {
         Toast.makeText(this,"Position : " + position,Toast.LENGTH_SHORT).show();
     }
