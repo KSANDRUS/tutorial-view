@@ -2,6 +2,9 @@ package com.hololo.tutorial.library;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+
+import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +54,7 @@ public class StepFragment extends StepView {
         }
         if (content != null) {
             content.setText(step.getContent());
+            makeLinksFocusable(content);
         }
         if (summary != null) {
             summary.setText(step.getSummary());
@@ -61,6 +65,15 @@ public class StepFragment extends StepView {
 
         if (layout != null) {
             layout.setBackgroundColor(step.getBackgroundColor());
+        }
+    }
+
+    private void makeLinksFocusable(TextView tv) {
+        MovementMethod m = tv.getMovementMethod();
+        if ((m == null) || !(m instanceof LinkMovementMethod)) {
+            if (tv.getLinksClickable()) {
+                tv.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
     }
 

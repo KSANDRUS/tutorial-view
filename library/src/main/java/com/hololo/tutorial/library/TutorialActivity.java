@@ -164,6 +164,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         steps.add(position, step);
         adapter.notifyDataSetChanged();
         notifyIndicator();
+        controlPosition(currentItem);
     }
 
     public void notifyIndicator() {

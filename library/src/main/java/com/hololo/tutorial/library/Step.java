@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class Step implements Parcelable {
 
     private String title;
-    private String content;
+    private CharSequence content;
     private String summary;
     private int drawable;
     private int backgroundColor;
@@ -31,11 +31,11 @@ public class Step implements Parcelable {
         this.title = title;
     }
 
-    public String getContent() {
+    public CharSequence getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(CharSequence content) {
         this.content = content;
     }
 
@@ -80,7 +80,7 @@ public class Step implements Parcelable {
             return this;
         }
 
-        public Builder setContent(String content) {
+        public Builder setContent(CharSequence content) {
             step.content = content;
             return this;
         }
@@ -115,7 +115,7 @@ public class Step implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
-        dest.writeString(this.content);
+        dest.writeValue(this.content);
         dest.writeString(this.summary);
         dest.writeInt(this.drawable);
         dest.writeInt(this.backgroundColor);
@@ -124,7 +124,7 @@ public class Step implements Parcelable {
 
     protected Step(Parcel in) {
         this.title = in.readString();
-        this.content = in.readString();
+        this.content = (CharSequence) in.readValue(CharSequence.class.getClassLoader());
         this.summary = in.readString();
         this.drawable = in.readInt();
         this.backgroundColor = in.readInt();
